@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head><title>Options for TenderTracker Extension</title>
+<script>
+var keys = ["api_key", "project_id", "user_name"];
+
+function init() {
+  for (key in keys) {
+    document.getElementById(keys[key]).value = window.localStorage.getItem(keys[key]);
+  }
+}
+
+function enableSaveButton() {
+  document.getElementById("save_button").disabled = false;
+}
+
+function save() {
+  for (key in keys) {
+    window.localStorage.setItem(keys[key], document.getElementById(keys[key]).value);
+  }
+  document.getElementById("save_button").disabled = true;
+}
+</script>
+</head>
+<body onload="init()">
+<div>API Key<input id="api_key" type="text" onchange="enableSaveButton()"></div>
+<div>Project ID<input id="project_id" type="text" onchange="enableSaveButton()"></div>
+<div>User Name<input id="user_name" type="text" onchange="enableSaveButton()"></div>
+<div><button id="save_button" disabled="disabled" onclick="save()">Save</button></div>
+</body>
+</html>

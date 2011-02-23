@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--
+When viewing a support case in Tender
+Clicking a button
+Creates a story in the RPM Tracker project that
+  Is a Bug
+  Is tagged with 'from_customer'
+  Includes a link to the Tender issue in the Description
+  Uses the Tender issue title as the story title
+^^ DONE
+And inserts an internal-only comment in the Tender issue
+  Containing a link to the Tracker story
+Then takes me to the Tracker story for further editing
+-->
+<html>
+  <head>
+    <script>
+      function handleStoryResponse(resp) {
+  	    console.log(resp);
+      }
+
+      chrome.pageAction.onClicked.addListener(function(tab) {
+        chrome.tabs.getSelected(null, function(tab) {
+          chrome.tabs.sendRequest(tab.id, {},  function(response) {
+            var api_key = window.localStorage.getItem("api_key");
+            var project_id = window.localStorage.getItem("project_id");
+            var user_name = window.localStorage.getItem("user_name");
+
+            var storyName = response.ticketTitle;
+            var storyDescription = response.ticketUrl;
+
+            var postData = "<story><story_type>bug</story_type><name>"+storyName+"</name><requested_by>"+user_name+"</requested_by><description>"+storyDescription+"</description><labels>from_customer</labels></story>";
+      
+            var req = new XMLHttpRequest();
+
+            req.open("POST", "https://www.pivotaltracker.com/services/v3/projects/"+project_id+"/stories", true);
+            req.setRequestHeader("X-TrackerToken", api_key);
+            req.setRequestHeader("Content-Type", "application/xml");
+            req.onreadystatechange = function () {
+              if (req.readyState != 4) return;
+              if (req.status != 200 && req.status != 304) {
+                console.log('HTTP error ' + req.status);
+                return;
+              }
+              handleStoryResponse(req.responseText);
+            };
+
+            req.send(postData);
+          });
+        }); 
+      });
+
+      // Only show the page action button for support tickets
+      function checkForValidUrl(tabId, changeInfo, tab) {
+        if (tab.url.indexOf('support.newrelic.com/discussions/') > -1) {
+          chrome.pageAction.show(tabId);
+        }
+      }
+      chrome.tabs.onUpdated.addListener(checkForValidUrl);
+    </script>
+  </head>
+</html>

@@ -1,0 +1,24 @@
+{
+    "name": "TenderTracker",
+    "version": "0.1",
+    "background_page": "popup.html",
+    "options_page": "options.html",
+    "page_action": {
+        "default_icon": "icon.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "http://support.newrelic.com/discussions/*",
+                "https://support.newrelic.com/discussions/*"
+            ],
+            "js": ["tenderside.js"]
+        }
+    ],
+    "permissions": [
+        "tabs",
+        "https://www.pivotaltracker.com/",
+        "http://support.newrelic.com/",
+        "https://support.newrelic.com/"
+    ]
+}
