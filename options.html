@@ -2,7 +2,7 @@
 <html>
 <head><title>Options for TenderTracker Extension</title>
 <script>
-var keys = ["api_key", "project_id", "user_name"];
+var keys = ["tender_domain", "api_key", "project_id", "user_name"];
 
 function init() {
   for (key in keys) {
@@ -23,6 +23,7 @@ function save() {
 </script>
 </head>
 <body onload="init()">
+<div>Tender Domain<input id="tender_domain" type="text" onchange="enableSaveButton()"></div>
 <div>API Key<input id="api_key" type="text" onchange="enableSaveButton()"></div>
 <div>Project ID<input id="project_id" type="text" onchange="enableSaveButton()"></div>
 <div>User Name<input id="user_name" type="text" onchange="enableSaveButton()"></div>

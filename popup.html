@@ -52,7 +52,8 @@ Then takes me to the Tracker story for further editing
 
       // Only show the page action button for support tickets
       function checkForValidUrl(tabId, changeInfo, tab) {
-        if (tab.url.indexOf('support.newrelic.com/discussions/') > -1) {
+        var tender_domain = window.localStorage.getItem("tender_domain");
+        if (tab.url.indexOf(tender_domain+'/discussions/') > -1) {
           chrome.pageAction.show(tabId);
         }
       }
