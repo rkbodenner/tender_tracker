@@ -1,7 +1,7 @@
 {
     "name": "TenderTracker",
     "version": "0.1",
-    "background_page": "popup.html",
+    "background_page": "background.html",
     "options_page": "options.html",
     "page_action": {
         "default_icon": "icon.png"
