@@ -50,14 +50,17 @@ Then takes me to the Tracker story for further editing
         }); 
       });
 
-      // Only show the page action button for support tickets
-      function checkForValidUrl(tabId, changeInfo, tab) {
+      function enableForSupportTickets(tabId, changeInfo, tab) {
         var tender_domain = window.localStorage.getItem("tender_domain");
-        if (tab.url.indexOf(tender_domain+'/discussions/') > -1) {
+
+        if ( tab.url.indexOf(tender_domain+'/discussions/') > -1 ) {
+          // Only load the JS for support tickets
+          chrome.tabs.executeScript(null, {file: "tenderside.js"});
+          // Only show the page action button for support tickets
           chrome.pageAction.show(tabId);
         }
       }
-      chrome.tabs.onUpdated.addListener(checkForValidUrl);
+      chrome.tabs.onUpdated.addListener(enableForSupportTickets);
     </script>
   </head>
 </html>
