@@ -1,1 +1,16 @@
 Chrome extension for linking Tender support tickets to Pivotal Tracker stories
+
+With this extension installed, a white rabbit will appear whenever you visit a Tender support ticket in Chrome.  Follow the white rabbit (by clicking his button in the address bar) to create a Pivotal Tracker bug that will be linked to the ticket.
+
+Installation
+------------
+0. git clone git://github.com/rkbodenner/tender_tracker.git
+1. chrome://extensions/
+2. Click '+' to show Developer Mode.
+3. Load unpacked extension...
+4. Select the directory where your clone of this project resides. The extension will then appear in the list.
+5. Click 'Options' and set all the options.
+
+Bugs
+----
+Following the white rabbit gives no indication that anything happened. You'll have to visit your Tracker project and look for the new story in the Icebox.
