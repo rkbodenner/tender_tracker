@@ -53,7 +53,7 @@ Then takes me to the Tracker story for further editing
       function enableForSupportTickets(tabId, changeInfo, tab) {
         var tender_domain = window.localStorage.getItem("tender_domain");
 
-        if ( tab.url.indexOf(tender_domain+'/discussions/') > -1 ) {
+        if ( tab.url.indexOf(tender_domain+'/help/discussions/') > -1 ) {
           // Only load the JS for support tickets
           chrome.tabs.executeScript(null, {file: "tenderside.js"});
           // Only show the page action button for support tickets
